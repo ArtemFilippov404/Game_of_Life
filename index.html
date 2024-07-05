@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game of Life</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Game of Life</h1>
+        <h3>Поколение: <span class="generation">0</span></h3>
+        <h3>Живых клеток: <span class="alive">0</span></h3>
+        <div class="wrapper-buttons">
+            <button class="btn" id="start" onclick="start()">Старт</button>
+            <button class="btn" id="stop" onclick="stop()">Стоп</button>
+            <button class="btn" id="random" onclick="random()">Рандом</button>
+            <button class="btn" id="clear" onclick="window.clear()">Очистить</button>
+        </div>
+        <div class="size">
+            <h3>Размер</h3>
+            <div class="wrapper-size">
+                <label for="width">
+                    Ширина
+                    <input type="text" class="input" id="width" placeholder="10">
+                </label>
+                <label for="height">
+                    Высота
+                    <input type="text" class="input" id="height" placeholder="10">
+                </label>
+                <button class="btn" id="size" onclick="size()">OK</button>
+                <button class="btn" id="reset" onclick="reset()">Сброс</button>
+            </div>
+        </div>
+    </div>
+    <div class="canvas-wrapper">
+        <canvas id="canvas"> Браузер не поддерживает HTML5 Canvas.</canvas>
+    </div>
+    
+
+</body>
+<script src="js/script.js"></script>
+</html>

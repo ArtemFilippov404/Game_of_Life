@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+h1,
+h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+.canvas-wrapper {
+    background: #ccc;
+    padding: 10px;
+}
+canvas {
+    display: block;
+    background: white;
+    margin: 0 auto;
+}
+.container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 10px;
+}
+.btn {
+    margin-right: 10px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+}
+.wrapper-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.wrapper-size {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.input {
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.size {
+    margin-top: 10px;
+}
+.wrapper-size label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.wrapper-size button {
+    margin-top: 10px;
+    margin-right: 0;
+}
