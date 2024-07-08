@@ -1,5 +1,5 @@
 const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
+const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
 let alive = document.querySelector('.alive');
 let generation = document.querySelector('.generation');
@@ -29,25 +29,19 @@ function start() {
 
         intervalId = setInterval(() => {
             grid = nextGeneration(grid);
-            grid = grid.map((row, rowIndex) => {
-                return row.map((cell, cellIndex) => {
+            for (let col = 0; col < grid.length; col++) {
+                for (let row = 0; row < grid[col].length; row++) {
+                    const cell = grid[col][row];
                     if (cell == 1) {
                         ctx.fillStyle = 'blue';
-                        ctx.fillRect(cellIndex * resolution, rowIndex * resolution, resolution, resolution);
-                        ctx.beginPath();
-                        ctx.rect(cellIndex * resolution, rowIndex * resolution, resolution, resolution);
-                        ctx.stroke();
+                        ctx.fillRect(col * resolution, row * resolution, resolution, resolution);
+                        ctx.strokeRect(col * resolution, row * resolution, resolution, resolution);
                     } else {
                         ctx.fillStyle = 'white';
-                        ctx.fillRect(cellIndex * resolution, rowIndex * resolution, resolution, resolution);
-                        ctx.beginPath();
-                        ctx.rect(cellIndex * resolution, rowIndex * resolution, resolution, resolution);
-                        ctx.stroke();
+                        ctx.clearRect(col * resolution, row * resolution, resolution, resolution);
                     }
-
-                    return cell
-                });
-            });
+                }
+            }
             render(grid);
 
 
@@ -71,19 +65,12 @@ function random() {
     grid = grid.map((row, rowIndex) => {
         return row.map((cell, cellIndex) => {
             cell = Math.random() < 0.5 ? 1 : 0;
-            if (cell == 1) {
-                ctx.fillStyle = 'blue';
-                ctx.fillRect(cellIndex * resolution, rowIndex * resolution, resolution, resolution);
-                ctx.beginPath();
-                ctx.rect(cellIndex * resolution, rowIndex * resolution, resolution, resolution);
-                ctx.stroke();
-            } else {
-                ctx.fillStyle = 'white';
-                ctx.fillRect(cellIndex * resolution, rowIndex * resolution, resolution, resolution);
-                ctx.beginPath();
-                ctx.rect(cellIndex * resolution, rowIndex * resolution, resolution, resolution);
-                ctx.stroke();
-            }
+            ctx.fillStyle = 'white';
+            if (cell == 1) {ctx.fillStyle = 'blue';}
+            ctx.fillRect(cellIndex * resolution, rowIndex * resolution, resolution, resolution);
+            ctx.beginPath();
+            ctx.rect(cellIndex * resolution, rowIndex * resolution, resolution, resolution);
+            ctx.stroke();
             return cell
         });
     });
@@ -184,9 +171,11 @@ function nextGeneration(grid) {
                     if (i === 0 && j === 0) {
                         continue;
                     }
-                    const x_cell = (col + i + cols) % cols;
-                    const y_cell = (row + j + rows) % rows;
-
+                    let x_cell = (col + i + cols) % cols;
+                    let y_cell = (row + j + rows) % rows;
+                    if(x_cell === col && y_cell === row){
+                        continue;
+                    }
                     aliveNeighbors += grid[x_cell][y_cell];
                 }
             }
@@ -199,18 +188,16 @@ function nextGeneration(grid) {
             }
         }
     }
-
     return nextGeneration;
 }
 
 function render(grid) {
+    ctx.beginPath();
     for (let col = 0; col < grid.length; col++) {
         for (let row = 0; row < grid[col].length; row++) {
-            const cell = grid[col][row];
-            ctx.beginPath();
             ctx.rect(col * resolution, row * resolution, resolution, resolution);
-            ctx.strokeStyle = '#7f7e7e';
-            ctx.stroke();
         }
     }
+    ctx.strokeStyle = '#7f7e7e';
+    ctx.stroke();
 }
